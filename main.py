@@ -104,14 +104,21 @@ def winning_check(columns, bet, lines, values):
 
 def main():
     balance = deposit()
-    bet = get_bet()
-    line = get_number_of_lines()
-    total_bet = bet*line
-    print(f"Your toal bet is ${total_bet}")
-    slot = spin_slots(ROW, COL, slot_symbols)
-    print_slot(slot)
-    win = winning_check(slot, bet, line, symbol_value)
-    print(f"You won {win}")
-    print(f"left: {int(balance)-total_bet+win}")
+    while True:
+        bet = get_bet()
+        line = get_number_of_lines()
+        total_bet = bet*line
+        if total_bet <= int(balance):
+            print(f"Your toal bet is ${total_bet}")
+            slot = spin_slots(ROW, COL, slot_symbols)
+            print_slot(slot)
+            win = winning_check(slot, bet, line, symbol_value)
+            left = int(balance) - total_bet + win
+            balance = left
+            print(f"You won {win}")
+            print(f"left: {left}")
+        else:
+            print("Dont have enough money. Try again")
+
 
 main()
